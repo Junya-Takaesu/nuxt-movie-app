@@ -1,6 +1,16 @@
 <template>
   <div class="hero">
-    <img src="../assets/imgs/movieHero.jpg" alt="" srcset="" />
+    <carousel
+      :autoplay="true"
+      :loop="true"
+      :pagination-enabled="false"
+      :per-page-custom="[[0, 1]]"
+      :autoplay-timeout="5000"
+    >
+      <slide v-for="i in 5" :key="i">
+        <img :src="`/_nuxt/assets/imgs/movieHero${i}.jpg`" />
+      </slide>
+    </carousel>
     <div class="text-container">
       <div class="text">
         <span class="mini-heading">Now Streaming</span>
@@ -12,8 +22,15 @@
 </template>
 
 <script>
+import Carousel from 'vue-carousel/src/Carousel.vue'
+import Slide from 'vue-carousel/src/Slide.vue'
+
 export default {
   name: 'Hero',
+  components: {
+    Carousel,
+    Slide,
+  },
 }
 </script>
 
@@ -21,9 +38,7 @@ export default {
 .hero {
   height: 400px;
   position: relative;
-  @media (min-width: 750px) {
-    height: 500px;
-  }
+
   &::after {
     content: '';
     position: absolute;
@@ -33,11 +48,13 @@ export default {
     width: 100%;
     background-color: rgba(0, 0, 0, 0.6);
   }
+
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
+
   .text-container {
     z-index: 99;
     position: absolute;
@@ -48,38 +65,61 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
+
     .text {
       padding: 0 16px;
       width: 100%;
       max-width: 1400px;
       margin: 0 auto;
     }
+
     .mini-heading {
       font-weight: 600;
       font-size: 18px;
       text-transform: uppercase;
       color: #c92502;
       margin-bottom: 8px;
-      @media (min-width: 750px) {
-        font-size: 22px;
-      }
     }
+
     h1 {
       color: #fff;
       font-size: 64px;
       font-weight: 200;
       margin-bottom: 8px;
-      @media (min-width: 750px) {
-        font-size: 84px;
-      }
+
       span {
         font-weight: 500;
       }
     }
+
     .button {
       font-size: 20px;
       align-self: flex-start;
     }
+  }
+
+  @media (min-width: 750px) {
+    height: 500px;
+
+    .text-container {
+      h1 {
+        font-size: 84px;
+      }
+
+      .mini-heading {
+        font-size: 22px;
+      }
+    }
+  }
+}
+</style>
+
+<style lang="scss">
+/* scoped のスタイルだと、適用されないので、unscoped でスタイルを定義 */
+.VueCarousel {
+  height: 100%;
+  * {
+    height: 100% !important;
   }
 }
 </style>
