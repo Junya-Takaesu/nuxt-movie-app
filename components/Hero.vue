@@ -7,8 +7,8 @@
       :per-page-custom="[[0, 1]]"
       :autoplay-timeout="5000"
     >
-      <slide v-for="i in 5" :key="i">
-        <img :src="`/_nuxt/assets/imgs/movieHero${i}.jpg`" />
+      <slide v-for="i in 7" :key="i">
+        <img :src="require(`../assets/imgs/movieHero${i}.jpg`)" />
       </slide>
     </carousel>
     <div class="text-container">
